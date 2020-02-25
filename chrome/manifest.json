@@ -1,0 +1,13 @@
+{
+  "name": "Refined Whatsapp",
+  "version": "0.0.1",
+  "description": "Browser extension that simplifies the Whatsapp interface and adds useful features.",
+  "manifest_version": 2,
+  "content_scripts": [{
+    "matches": ["https://web.whatsapp.com/*"],
+    "js": ["main.js"],
+    "css": ["main.css"],
+    "run_at": "document_start",
+    "all_frames": false
+  }]
+}
