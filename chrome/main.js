@@ -22,28 +22,30 @@ function hideImages() {
     const button = document.createElement('button')
     const parent = img.parentElement
 
-    // is emoji
-    if (isSpan(parent)) {
-      return;
-    }
-
-    // is emoji
-    if (!img.src.includes('data:image') && !img.src.includes('blob')) {
-      return;
+    if (isEmoji(img)) {
+      return
     }
 
     parent.style.height = '60px'
     img.style.display = 'none'
 
-    button.textContent = 'Open image'
+    button.textContent = 'Open'
     button.classList.add('OpenButton')
 
     parent.prepend(button)
   })
 }
 
-function isSpan(tag) {
-  return tag.tagName.toLowerCase() === 'span'
+function isEmoji(image) {
+  const {src, parentElement} = image
+  const isEmoji = parentElement.tagName.toLowerCase() === 'span'
+  const isSticker = !src.includes('data:image') && !src.includes('blob')
+
+  if (isEmoji || isSticker) {
+    return true
+  }
+
+  return false
 }
 
 function observeApp() {
