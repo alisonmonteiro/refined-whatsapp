@@ -11,6 +11,7 @@ function watchPaneClick() {
   friends.forEach(friend => {
     friend.addEventListener('click', () => {
       hideImages()
+      observeScroll()
     })
   })
 }
@@ -22,7 +23,7 @@ function hideImages() {
     const button = document.createElement('button')
     const parent = img.parentElement
 
-    if (isEmoji(img)) {
+    if (isEmoji(img) || isHidden(img)) {
       return
     }
 
@@ -36,6 +37,10 @@ function hideImages() {
   })
 }
 
+function isHidden(img) {
+  return img.style.display === 'none'
+}
+
 function isEmoji(image) {
   const {src, parentElement} = image
   const isEmoji = parentElement.tagName.toLowerCase() === 'span'
@@ -46,6 +51,17 @@ function isEmoji(image) {
   }
 
   return false
+}
+
+function observeScroll() {
+  const message = document.querySelector('#main header + span + div + div > .copyable-area > div')
+
+  if (!message) {
+    return false
+  }
+
+  message.addEventListener('scroll', hideImages)
+  return true
 }
 
 function observeApp() {
@@ -74,6 +90,4 @@ function observeApp() {
   appObserver.observe(app, observerConfig);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  observeApp()
-})
+window.addEventListener('DOMContentLoaded', observeApp)

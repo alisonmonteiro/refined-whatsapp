@@ -1,6 +1,6 @@
 .OpenButton {
   color: #000;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 .message-in img:not([draggable="false"]),
